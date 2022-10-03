@@ -24,11 +24,21 @@ std::vector<std::string> StringParser::Tokenize(std::string const& text, std::st
     return result;
 }
 
-std::vector<std::string> StringParser::SeekAndTokenize(std::string line, char* cline, char a, char b){
+std::vector<std::string> StringParser::SeekAndTokenize(std::string line, char a, char b){
   std::vector<std::string> List;
+  char *cline = &line[0];
 
   if(cline[0]==a && cline[1]==b){
     List = StringParser::Tokenize(line, " ");
   }
   return List;
+}
+
+void StringParser::EliminateLabels(std::vector<std::string>& List, char a, char b){
+  for(int i = 0; i < List.size(); i++){
+    char* content = &List.at(i)[0];
+    if(content[0] == a | content[0] == b){
+      List.erase(List.begin() + i);
+    }
+  }
 }
